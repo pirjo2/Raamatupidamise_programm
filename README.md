@@ -6,3 +6,4 @@ Pirjo - valemid, maksud, teooria
 Mihkel - programmi raamistik ehk inputid ja küsimused
 Ruslan - failid, sisse lugemine, kirjutamine
 Rollid võivad muutuda aja jooksul kuna asju tuleb juurde ja rolle võidakse vahetada.
+Trello link: https://trello.com/b/w9r1YCl8/proge-projekt
