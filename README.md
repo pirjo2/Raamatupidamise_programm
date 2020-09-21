@@ -7,3 +7,4 @@ Mihkel - programmi raamistik ehk inputid ja küsimused
 Ruslan - failid, sisse lugemine, kirjutamine
 Rollid võivad muutuda aja jooksul kuna asju tuleb juurde ja rolle võidakse vahetada.
 Trello link: https://trello.com/b/w9r1YCl8/proge-projekt
+Testloode fail koos piltidega :https://docs.google.com/document/d/1OtZ-CjqT0AXZYt7MoukNL51ir7tfyouzigEHd0q7Xyg/edit?usp=sharing
