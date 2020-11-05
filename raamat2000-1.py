@@ -1,8 +1,11 @@
 import PySimpleGUI as sg
-import xlwt
-import xlsxwriter
-import openpyxl
-from xlwt import Workbook
+#import xlwt
+#import xlsxwriter
+#import openpyxl
+from openpyxl import Workbook
+#from xlwt import Workbook
+from openpyxl import load_workbook
+wb = Workbook()
 sg.theme('LightBlue6')  # akna värvilahenduse muutmine
 
 def arvuta(bruto, sots, pens, tooandja, tootaja, tulumaks, toolisemaksud, neto, maksud, tooandjamaks, tulum, tmv, aasta, pens2, tootaja2, sots2, tooandja2):
@@ -140,8 +143,9 @@ while True:
         list.clear()
     #print(event, values)
     if event == 'button1':
+        #direct=self.filename2
         lehenimi = str(values['kuupaevalahter1']) + "." + str(values['kuupaevalahter2'])
-        aa = "Andmed_Excelis.xlsx"
+        #aa = "Andmed_Excelis.xlsx"
         try:
         
         #if open(aa) == True:
@@ -151,55 +155,59 @@ while True:
             #hea oleks saada yhele reale niimodi, et sheeti pikka teksti ei tuleks 2 korda.
             #wb = Workbook()
         
-            workbook = openpyxl.load_workbook('Andmed_Excelis.xlsx')
+            wb = load_workbook('Andmed_Excelis.xlsx')
             #lehenimi = str(values['kuupaevalahter1']) + "." + str(values['kuupaevalahter2'])
         except:
-            workbook = xlsxwriter.Workbook("Andmed_Excelis.xlsx")
+            ws = wb.active
             #worksheet = workbook.add_worksheet(lehenimi)
             #file = open("Andmed_Excelis.xlsx", "x")
             
-        
-            workbook.close()
-            workbook = openpyxl.load_workbook('Andmed_Excelis.xlsx')
+            #ws.title = lehenimi
+            #wb.close()
+            #wb = openpyxl.load_workbook('Andmed_Excelis.xlsx')
             #lehenimi = str(values['kuupaevalahter1']) + "." + str(values['kuupaevalahter2'])
-        if not lehenimi in workbook.sheetnames:
+        if not lehenimi in wb.sheetnames:
             #book.create_sheet(lehenimi)
 
             #sheet1 = wb.add_sheet('Andmed Excelis')
-            workbook = xlsxwriter.Workbook("Andmed_Excelis.xlsx")
-            worksheet = workbook.add_worksheet(lehenimi)
+            #workbook = xlsxwriter.Workbook("Andmed_Excelis.xlsx")
+            ws = wb.create_sheet(lehenimi)
             
-            worksheet.write(1, 0, 'Töötaja')
-            worksheet.write(2, 0, 'Tööandja') 
-            worksheet.write(0, 0, 'Töötaja/Tööandja') 
-            worksheet.write(0, 1, 'Eesnimi') 
-            worksheet.write(0, 2, 'Perekonnanimi') 
-            worksheet.write(0, 3, 'Bruto Palk') 
-            worksheet.write(0, 4, 'Neto Palk')
-            worksheet.write(0, 5, 'Kogumispension') 
-            worksheet.write(0, 6, 'Töötuskindlustusmaks') 
-            worksheet.write(0, 7, 'Tulumaks') 
-            worksheet.write(0, 8, 'Sotsiaalmaks')
-            worksheet.write(0, 9, 'Tööandja kulud kokku')
-            worksheet.write(1, 1, values['nimelahter1'])
-            worksheet.write(1, 2, values['nimelahter2']) 
-            worksheet.write(1, 3, values['bruto']) 
-            worksheet.write(1, 4, neto3) 
-            worksheet.write(1, 5, pension3) 
-            worksheet.write(1, 6, tootuskindlustustootaja3) 
-            worksheet.write(1, 7, tulumaks3)
-            worksheet.write(1, 8, '-') 
-            worksheet.write(1, 9, '-')  
-            worksheet.write(2, 1, values['nimelahter3'])
-            worksheet.write(2, 2, values['nimelahter4'])
-            worksheet.write(2, 3, '-')
-            worksheet.write(2, 4, '-') 
-            worksheet.write(2, 5, '-') 
-            worksheet.write(2, 6, tootuskindlustustooandja3) 
-            worksheet.write(2, 7, '-') 
-            worksheet.write(2, 8, sots3) 
-            worksheet.write(2, 9, kokku3)
-    
-            workbook.close()
+        else:
+            ws = wb[lehenimi]
+            
+        ws['A2']='Töötaja'
+        ws['A3']='Tööandja'
+        ws['A1']='Töötaja/Tööandja'
+        ws['B1']='Eesnimi'
+        ws['C1']='Perekonnanimi'
+        ws['D1']='Bruto Palk'
+        ws['E1']='Neto Palk'
+        ws['F1']='Kogumispension'
+        ws['G1']='Töötuskindlustusmaks'
+        ws['H1']='Tulumaks'
+        ws['I1']='Sotsiaalmaks'
+        ws['J1']='Tööandja kulud kokku'
+        ws['B2']=values['nimelahter1']
+        ws['C2']=values['nimelahter2']
+        ws['D2']=values['bruto']
+        ws['E2']=neto3
+        ws['F2']=pension3
+        ws['G2']=tootuskindlustustootaja3
+        ws['H2']=tulumaks3
+        ws['I2']='-'
+        ws['J2']='-'
+        ws['B3']=values['nimelahter3']
+        ws['C3']=values['nimelahter4']
+        ws['D3']='-'
+        ws['E3']='-'
+        ws['F3']='-'
+        ws['G3']=tootuskindlustustooandja3
+        ws['H3']='-'
+        ws['I3']=sots3
+        ws['J3']=kokku3
+        #wb.save(direct + "Andmed_Excelis.xlsx")
+        wb.save(filename = 'Andmed_Excelis.xlsx')
         #book.save('Andmed_Excelis.xlsx')
+            
 window.close()
